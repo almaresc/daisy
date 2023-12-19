@@ -164,28 +164,29 @@
 			}
 				
 			.barratop {	
-				/* IE10 */
-				background-image: -ms-linear-gradient(top right, #3362CD 0%, #2D53A8 100%);
-				/* Mozilla Firefox */
-				background-image: -moz-linear-gradient(top right, #3362CD 0%, #2D53A8 100%);
-				/* Opera */
-				background-image: -o-linear-gradient(top right, #3362CD 0%, #2D53A8 100%);
-				/* Webkit (Safari/Chrome 10) */
-				background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, #3362CD), color-stop(1, #2D53A8));
-				/* Webkit (Chrome 11+) */
-				background-image: -webkit-linear-gradient(top right, #3362CD 0%, #2D53A8 100%);
-				/* Regola standard */
-				background-image: linear-gradient(to top right, #3362CD 0%, #2D53A8 100%);
+				
+			    background-color: #00428A;
 				height: 150px;
 				width: 100%;
 				position: fixed;
 				top: 0;
 				z-index: -1;
 			}	
+		
 			.webchat {				
 				width:100%;
 				margin-top: 130px;
 				hidden: true;
+				
+			}
+			
+			.homelink
+			{
+				font-size:35px;
+								
+				text-decoration: none;
+				color: #FFFFFF;
+				outline: none;	
 				
 			}
 				
@@ -196,20 +197,62 @@
 		<div class="barratop">
 			<span style="position:relative;float:left;text-align:center;text-decoration:none;color:#FFFFFF;width:20%">
 				<ul >
-				<li style="font-size:35px;">DAISY</li>
-				<li style="font-size:25px;"><b>D</b>efence <b>A</b>rtificial <b>I</b>ntelligence <b>Sy</b>stem</li>
-				<li><img src="daysilogowht.png" height="60" aria-label="daisy" /></li>
+				<li style="margin-top: 15px;cursor: pointer;"><a href="index.html" class="homelink">DAISY</a></li>		
+				<li style="cursor: pointer;"><a href="index.html" class="homelink"><img src="daysilogowht.png" height="60" aria-label="daisy" /></a></li>
 				</ul>
 			</span>
-			<span style="position:relative;float:left;width:60%;text-align:center;text-decoration:none;color:#FFFFFF;font-size:35px;margin-top:40px;">				
+			<span style="position:relative;float:left;width:60%;text-align:center;text-decoration:none;color:#FFFFFF;font-size:35px;margin-top:50px;">				
 				Dialoga con APE				
 			</span>
 			<span style="position:relative;float:left;width:20%;">				
-				<img src= "./ape.png" />			
+				<img src= "./ape.png" height="153" width="153" />			
 			</span>
 		</div><br/>
-		<h1 style="color:white" class="webchat">Coming soon</h1>
-        
+	 <div id="webchat" class="webchat"></div>
+		<script>      
+       
+			(async function () {		
+				
+				var h = $(window).height()-250;
+				$('#webchat').height(h);
+				
+				const styleOptions = {
+
+				// Avatar
+					botAvatarImage: 'ape.png',
+					botAvatarInitials: '',
+
+					//user
+					userAvatarImage: 'user.png',
+					userAvatarInitials: '',
+
+					// Send box
+					hideSendBox: false,
+					hideUploadButton: true,
+					sendBoxButtonColor: '#767676',
+					sendBoxButtonColorOnDisabled: '#CCC',
+					sendBoxButtonColorOnFocus: '#333',
+					sendBoxButtonColorOnHover: '#333',
+					sendBoxHeight: 30,
+
+				};	
+
+				const markdownIt = window.markdownit({html:true});  
+				// Pass the set of adapters to Web Chat.
+				window.WebChat.renderWebChat(
+					{
+						directLine: window.WebChat.createDirectLine({token: 'EX_VFPE9MHg.u99FQ30ws7g_RCfkcii0wg7i9-McfHUlFGjC3_6ARPo'}),
+						//styleSet,
+						styleOptions: styleOptions,
+						renderMarkdown: markdownIt.render.bind(markdownIt),
+						locale: 'it-IT'
+					},
+					document.getElementById('webchat')
+				);
+
+				document.querySelector('#webchat > *').focus();
+			})().catch(err => console.error(err));
+		</script>
 		<div class="barra">
 		<center>
 		<table>
@@ -228,9 +271,5 @@
 	</body>
 	
 </html>
-
-
-
-
 
 
